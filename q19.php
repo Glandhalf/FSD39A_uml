@@ -40,7 +40,7 @@ class Technician {
 
     public function addSubordinate(Technician $subordinate): self
     {
-        if(!array_search($subordinate, $this->subordinates))
+        if(!array_search($subordinate, $this->subordinates) && ($subordinate !== $this))
         {
             array_push($this->subordinates, $subordinate);
             $subordinate->setSuperior($this);
@@ -65,6 +65,7 @@ $luigi = new Technician('luigi');
 $peach = new Technician('peach');
 $toad = new Technician('toad');
 $yoshi = new Technician('yoshi');
+$bowser = new Technician('bowser');
 
 $peach->addSubordinate($toad);
 $toad->addSubordinate($mario)->addSubordinate($luigi);
@@ -74,3 +75,6 @@ var_dump($toad);
 var_dump($mario);
 var_dump($luigi);
 var_dump($yoshi);
+var_dump($bowser);
+
+$bowser->addSubordinate($bowser);
