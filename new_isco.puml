@@ -1,0 +1,171 @@
+// HA-Thu Jessy Maxime Nicolas GRITTE
+@startuml Diagramme de classe New Isco
+
+class Devis {
+    __ private data __
+    -id: int
+    -affaire: Affaire
+    -type: string
+    -offre: string
+    -intitule: string
+    -itc: ITC
+    -client: Client
+    -date: Date
+    .. Getter / Setter ..
+    +getId() : integer
+    +getAffaire() : Affaire
+    +setAffaire(affaire: Affaire) : self
+    +getType() : string
+    +setType(type: string) : self
+    +getOffre() : string
+    +setOffre(offre: string) : self
+    +getIntitule() : string
+    +setIntitule(intitule: string) : self
+    +getItc() : ITC
+    +setItc(itc: ITC) : self
+    +getClient() : Client
+    +setClient(client: Client) : self
+    +getDate() : Date
+    +setDate(date: Date) : self
+}
+class Affaire {
+    __ private data __
+    -id: int
+    -devis: array
+    .. Getter / Setter ..
+    +getId() : integer
+    +getDevis() : array
+    +setDevis(collection: array) : self
+    .. Custom Methods ..
+    addDevis(devis: Devis)
+}
+
+class Product {
+    __ private data __
+    -id: int
+    -intitule: string 
+    -ref_catalogue: int
+    -code_ean: int
+    -ref_constructeur: string
+    -fournisseur: string
+    -coef: float
+    .. Getter / Setter ..
+    +getId() : integer
+    +getIntitule() : string
+    +setIntitule(name: string) : self
+    +getRefcatalogue() : int
+    +setRefcatalogue(ref: int) : self
+    +getCodeean() : int
+    +setCodeean(code: int) : self
+    +getRefconstructeur() : string
+    +setRefconstructeur(ref: string) : self
+    +getFournisseur() : string
+    +setFournisseur(name: string) : self
+    +getCoef() : float
+    +setCoef(coef: float) : self
+} 
+
+class Prestation {
+    __ private data __
+    -id: int
+    -intitule: string 
+    -ref_catalogue: int
+    -code_ean: int
+    -ref_constructeur: string
+    -prestataire: string
+    -coef: float
+    .. Getter / Setter ..
+    +getId() : integer
+    +getIntitule() : string
+    +setIntitule(name: string) : self
+    +getRefcatalogue() : int
+    +setRefcatalogue(ref: int) : self
+    +getCodeean() : int
+    +setCodeean(code: int) : self
+    +getRefconstructeur() : string
+    +setRefconstructeur(ref: string) : self
+    +getPrestataire() : string
+    +setPrestataire(name: string) : self
+    +getCoef() : float
+    +setCoef(coef: float) : self
+
+}
+
+class Responsable {
+    __ private data __
+    -id: int
+    -name: string
+    -itcs: array
+    .. Getter / Setter ..
+    +getId() : integer
+    +getName() : string
+    +setName(name: string) : self
+    +getItcs() : array
+    +setItcs(collection: array) : self
+    .. Custom Methods ..
+    addItc(itc: ITC)
+}
+
+class ITC {
+    __ private data __
+    -id: int
+    -firstname: string
+    -lastname: string
+    -responsable: Responsable
+    -devis: array
+    .. Getter / Setter ..
+    +getId() : integer
+    +getFirstname() : string
+    +setFirstname(firstname: string) : self
+    +getLastname() : string
+    +setLastname(lastname: string) : self
+    +setResponsable(responsable: Responsable)
+}
+
+class Client {
+    __ private data __
+    -id: int
+    -interlocuteurs: array
+    -tel: string 
+    -raisonsociale: string
+    .. Getter / Setter ..
+    +getId() : integer
+    +getInterlocuteurs() : array
+    +setInterlocuteurs(collection: array) : self
+    +getTel() : string
+    +setTel(tel: string) : self
+    +getRaisonsociale() : string
+    +setRaisonsociale(name: string) : self
+    .. Custom Methods ..
+    addInterlocuteur(interlocuteur: Interlocuteur)
+}
+class Interlocuteur  {
+    __ private data __
+    -id: int
+    -civilite: string
+    -name: string
+    -mail: string
+    -telFixe: string
+    -telMob: string
+    .. Getter / Setter ..
+    +getId() : integer
+    +getCivilite() : string
+    +setCivilite(civilite: string) : self
+    +getName() : string
+    +setName(name: string) : self
+    +getMail() : string
+    +setMail(mail: string) : self
+    +getTelFixe() : string
+    +setTelFixe(telFixe: string) : self
+    +getTelMob() : string
+    +setTelMob(telMob: string) : self
+
+}
+Responsable "1" -- "0..*" ITC : manage
+ITC "1" -- "0..*" Devis :  edit
+Client "1" -- "0..*" Interlocuteur :  has
+Devis "0..*" -- "0..*" Product :  has
+Devis "0..*" -- "0..*" Prestation :  has
+Devis "0..*" -- "0..1" Client :  has
+Devis "0..*" -- "1" Affaire :  has
+@enduml
